@@ -26,29 +26,9 @@ metadata:
   name: romnis-service
   namespace: default
 spec:
-  type: ClusterIP  # Keeps it internally routable via the NGINX Ingress controller
+  type: LoadBalancer  # Keeps it internally routable via the NGINX Ingress controller
   ports:
   - port: 80
     targetPort: 3000
   selector:
     app: romnis
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: romnis-ingress
-  namespace: default
-  annotations:
-    link.argocd.argoproj.io/external-url: "http://romnis.local/romnis"
-spec:
-  rules:
-  - host: romnis.local
-    http:
-      paths:
-      - path: /romnis
-        pathType: Prefix
-        backend:
-          service:
-            name: romnis-service
-            port:
-              number: 80
