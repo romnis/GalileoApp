@@ -25,6 +25,8 @@ kind: Service
 metadata:
   name: romnis-service
   namespace: default
+  labels:
+    hi: rom
 spec:
   type: LoadBalancer  # Keeps it internally routable via the NGINX Ingress controller
   ports:
