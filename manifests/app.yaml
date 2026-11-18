@@ -16,7 +16,7 @@ spec:
       containers:
       - name: romnis
         image: romnis-app:latest
-        imagePullPolicy: Never  # Tells Kubernetes to use the local Minikube image
+        imagePullPolicy: Never
         ports:
         - containerPort: 3000
 ---
@@ -26,11 +26,10 @@ metadata:
   name: romnis-service
   namespace: default
 spec:
-  type: NodePort
+  type: ClusterIP  # Keeps it internally routable via the NGINX Ingress controller
   ports:
   - port: 80
     targetPort: 3000
-    nodePort: 30080
   selector:
     app: romnis
 ---
@@ -39,6 +38,8 @@ kind: Ingress
 metadata:
   name: romnis-ingress
   namespace: default
+  annotations:
+    link.argocd.argoproj.io/external-url: "http://romnis.local/romnis"
 spec:
   rules:
   - host: romnis.local
