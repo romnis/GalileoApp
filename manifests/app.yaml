@@ -33,3 +33,21 @@ spec:
     nodePort: 30080
   selector:
     app: romnis
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: romnis-ingress
+  namespace: default
+spec:
+  rules:
+  - host: romnis.local
+    http:
+      paths:
+      - path: /romnis
+        pathType: Prefix
+        backend:
+          service:
+            name: romnis-service
+            port:
+              number: 80
