@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/your-username/your-repo.git' # Replace with your Git repo URL or local path configuration
+    repoURL: 'https://github.com/romnis/GalileoApp.git'
     targetRevision: HEAD
     path: manifests
   destination:
